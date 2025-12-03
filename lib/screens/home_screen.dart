@@ -2,36 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getxlearn/controller/home_screen_controller.dart';
 
+
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+   HomeScreen({super.key});
+
+  
 
   @override
   Widget build(BuildContext context) {
-    
-    final controller = Get.put(HomeScreenController());
-
+    final HomeScreenController controller = Get.put(HomeScreenController());
     return Scaffold(
-      appBar: AppBar(title: const Text('Home Screen')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-
+      
+      body: Obx(() => controller.screens[controller.selectedIndex.value]),
+      bottomNavigationBar: Obx(
+        () => NavigationBar(
+        
+          selectedIndex: controller.selectedIndex.value,
+        
+          onDestinationSelected: (value) {
+        
+            controller.selectedIndex.value = value;
             
-            Obx(() {
-              return Text(
-                controller.counter.toString(),
-                style: TextStyle(fontSize: 40),
-              );
-            }),
-
-            ElevatedButton(
-              onPressed: () {
-                controller.counter++;
-              },
-              child: Text('Increment'),
-            ),
+          },
+          destinations: [
+        
+            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+            NavigationDestination(icon: Icon(Icons.search), label: 'Maps'),
+            NavigationDestination(icon: Icon(Icons.person), label: 'Store'),
+            
           ],
         ),
       ),
