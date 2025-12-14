@@ -10,12 +10,10 @@ class HomeScreenController extends GetxController {
   RxList data = [
     {"title": "title 1", "description": "description 1"},
     {"title": "title 2", "description": "description 2"},
-    {"title": "title 3", "description": "description 3"},
-    {"title": "title 4", "description": "description 4"},
-    {"title": "title 5", "description": "description 5"},
+    
   ].obs;
 
-  Future<void> addData() async {
+  Future<void> showBottomSheet() async {
     await showModalBottomSheet(
       context: Get.context!,
       builder: (context) {
@@ -77,11 +75,21 @@ class HomeScreenController extends GetxController {
                 ),
               ),
               SizedBox(height: 30),
-              ElevatedButton(onPressed: () {}, child: Text('Add')),
+              ElevatedButton(onPressed: () => addData(), child: Text('Add')),
             ],
           ),
         );
       },
     );
+  }
+
+  void addData() {
+    Map<String, String> map = {
+      "title": titleController.text,
+      "description": descriptionController.text,
+    };
+    data.add(map);
+    print('Data Added');
+    print(data);
   }
 }

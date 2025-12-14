@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          controller.addData();
+          controller.showBottomSheet();
         },
         child: const Icon(Icons.add),
       ),
